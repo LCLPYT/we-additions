@@ -14,11 +14,7 @@
 	"license": "CC0-1.0",
 	"icon": "assets/we-additions/icon.png",
 	"environment": "*",
-	"entrypoints": {
-		"main": [
-			"work.lclpnet.weadditions.WeAdditions"
-		]
-	},
+	"entrypoints": {},
 	"mixins": [
 		"we-additions.mixins.json"
 	],
