@@ -11,7 +11,7 @@
 		"homepage": "https://github.com/LCLPYT/we-additions",
 		"sources": "https://github.com/LCLPYT/we-additions"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/we-additions/icon.png",
 	"environment": "*",
 	"entrypoints": {},
@@ -20,7 +20,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.14.14",
-		"minecraft": "~1.19.3",
+		"minecraft": "~1.19.4",
 		"java": ">=17",
 		"fabric-api": "*",
 		"worldedit": ">=7.2.14"

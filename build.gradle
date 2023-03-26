@@ -76,8 +76,8 @@ publishing {
             from components.java
 
             pom {
-                name = 'Test Mod'
-                description = 'This is an example description! Tell everyone what your mod is about!'
+                name = 'World Edit Additions'
+                description = 'A tiny mod that adds some features to world edit.'
             }
         }
     }
