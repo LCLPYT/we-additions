@@ -4,20 +4,19 @@ import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.LocalSession;
 import com.sk89q.worldedit.command.BiomeCommands;
 import com.sk89q.worldedit.extension.platform.Actor;
-import com.sk89q.worldedit.fabric.FabricWorld;
 import com.sk89q.worldedit.function.RegionFunction;
 import com.sk89q.worldedit.function.mask.Mask;
 import com.sk89q.worldedit.function.visitor.RegionVisitor;
 import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.world.World;
 import com.sk89q.worldedit.world.biome.BiomeType;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.chunk.ChunkStatus;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+import work.lclpnet.weadditions.WeAdditions;
+import work.lclpnet.weadditions.service.BiomeSyncService;
 
 @Mixin(value = BiomeCommands.class, remap = false)
 public class BiomeCommandsMixin {
@@ -40,15 +39,7 @@ public class BiomeCommandsMixin {
                                         BiomeType target, boolean atPosition, CallbackInfo ci,
                                         Region region, Mask mask, RegionFunction replace, RegionVisitor visitor) {
 
-        if (!(world instanceof FabricWorld fabricWorld)) return;
-
-        var mcWorld = fabricWorld.getWorld();
-        if (!(mcWorld instanceof ServerWorld serverWorld)) return;
-
-        var chunks = region.getChunks().stream()
-                .map(chunkPos -> serverWorld.getChunk(chunkPos.getX(), chunkPos.getZ(), ChunkStatus.FULL, false))
-                .toList();
-
-        serverWorld.getChunkManager().threadedAnvilChunkStorage.sendChunkBiomePackets(chunks);
+        var syncer = WeAdditions.getInstance().getService(BiomeSyncService.class);
+        syncer.sync(world, region);
     }
 }
