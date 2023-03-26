@@ -19,20 +19,16 @@ class WeAdditionsTest {
     void getService() {
         var instance = WeAdditions.getInstance();
 
-        assertNull(instance.getService(TestInterface.class));
+        assertTrue(instance.getService(TestInterface.class).isEmpty());
 
         final var serviceInstance = new TestImpl();
         instance.registerService(TestInterface.class, serviceInstance);
 
-        var service = instance.getService(TestInterface.class);
+        var service = instance.getService(TestInterface.class).orElseThrow();
         assertEquals(serviceInstance, service);
     }
 
-    private interface TestInterface {
-        void test();
-    }
+    private interface TestInterface {}
 
-    private static class TestImpl implements TestInterface {
-        @Override public void test() {}
-    }
+    private static class TestImpl implements TestInterface {}
 }

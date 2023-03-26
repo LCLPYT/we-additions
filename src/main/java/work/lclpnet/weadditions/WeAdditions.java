@@ -1,13 +1,12 @@
 package work.lclpnet.weadditions;
 
-import work.lclpnet.weadditions.service.BiomeSyncService;
-import work.lclpnet.weadditions.service.OperationFilterService;
-import work.lclpnet.weadditions.service.impl.BiomeSyncServiceImpl;
-import work.lclpnet.weadditions.service.impl.OperationFilterServiceImpl;
+import work.lclpnet.weadditions.service.*;
+import work.lclpnet.weadditions.service.impl.*;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 public class WeAdditions {
 
@@ -18,8 +17,11 @@ public class WeAdditions {
 
     private WeAdditions() {
         // default service implementations
-        registerService(BiomeSyncService.class, new BiomeSyncServiceImpl());
+        registerService(ChunkSyncService.class, new ChunkSyncServiceImpl());
         registerService(OperationFilterService.class, new OperationFilterServiceImpl());
+        registerService(ChunkChangeMemoryService.class, new ChunkChangeMemoryServiceImpl());
+        registerService(ChunkChangePostProcessor.class, new ChunkSyncPostProcessor());
+        registerService(ExtentWorldService.class, new ExtentWorldServiceImpl());
     }
 
     public static WeAdditions getInstance() {
@@ -65,7 +67,8 @@ public class WeAdditions {
      * @param <S> The service implementation type.
      */
     @SuppressWarnings("unchecked")
-    public <C, S extends C> S getService(Class<C> serviceClass) {
-        return (S) services.get(serviceClass);
+    public <C, S extends C> Optional<S> getService(Class<C> serviceClass) {
+        return Optional.ofNullable(services.get(serviceClass))
+                .map(service -> (S) service);
     }
 }

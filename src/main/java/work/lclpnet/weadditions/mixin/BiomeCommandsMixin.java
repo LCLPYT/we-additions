@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import work.lclpnet.weadditions.WeAdditions;
-import work.lclpnet.weadditions.service.BiomeSyncService;
+import work.lclpnet.weadditions.service.ChunkSyncService;
 
 @Mixin(value = BiomeCommands.class, remap = false)
 public class BiomeCommandsMixin {
@@ -39,7 +39,7 @@ public class BiomeCommandsMixin {
                                         BiomeType target, boolean atPosition, CallbackInfo ci,
                                         Region region, Mask mask, RegionFunction replace, RegionVisitor visitor) {
 
-        var syncer = WeAdditions.getInstance().getService(BiomeSyncService.class);
-        syncer.sync(world, region);
+        WeAdditions.getInstance().getService(ChunkSyncService.class)
+                .ifPresent(service -> service.sync(world, region.getChunks()));
     }
 }
