@@ -22,7 +22,6 @@
 		"fabricloader": ">=0.14.14",
 		"minecraft": "~1.19.4",
 		"java": ">=17",
-		"fabric-api": "*",
 		"worldedit": ">=7.2.14"
 	}
 }
