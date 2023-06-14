@@ -74,8 +74,8 @@ public class ChangeSetExecutorMixin implements ChunkMemory {
             method = "resume",
             at = @At(
                     value = "FIELD",
-                    opcode = Opcodes.GETSTATIC,
-                    target = "Lcom/sk89q/worldedit/function/operation/ChangeSetExecutor$Type;UNDO:Lcom/sk89q/worldedit/function/operation/ChangeSetExecutor$Type;"
+                    opcode = Opcodes.GETFIELD,
+                    target = "Lcom/sk89q/worldedit/function/operation/ChangeSetExecutor;type:Lcom/sk89q/worldedit/function/operation/ChangeSetExecutor$Type;"
             ),
             remap = false,
             locals = LocalCapture.CAPTURE_FAILSOFT
